@@ -1,0 +1,25 @@
+version: "3.5"
+
+services:
+
+  react-app:
+    container_name: demo-react
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: demo/reactapp
+    networks: 
+      - web    
+    volumes:
+      - "/usr/src/app/node_modules"
+    environment:
+      - NODE_ENV=development
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=3000"
+      - "traefik.frontend.rule=Host:demo.fatboarrestaurant.com"
+      - "traefik.docker.network=web"
+
+networks:
+  web:
+    external: true  
