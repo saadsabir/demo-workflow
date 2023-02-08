@@ -1,0 +1,12 @@
+FROM demo/reactapp
+
+COPY . .
+
+# Environment variables
+ENV NODE_ENV production
+
+RUN yarn install && yarn global add mocha 
+
+RUN export JUNIT_REPORT_PATH=./report.xml
+
+CMD ["yarn", "testjunit"]
